@@ -1,0 +1,5 @@
+---
+- name: Nebula Mesh Setup
+  hosts: nebula
+  roles:
+    - nebula

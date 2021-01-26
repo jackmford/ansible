@@ -1,0 +1,12 @@
+- name: Test
+  file:
+    path: /opt/nebula/log.txt
+    state: touch
+    mode: 0755
+
+- name: Test lineinfile
+  lineinfile: 
+    dest: /opt/nebula/log.txt
+    line: 'hi'
+  when: arch == 'amd64'
+
