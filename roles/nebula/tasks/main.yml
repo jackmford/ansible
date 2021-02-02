@@ -1,12 +1,88 @@
-- name: Test
+- name: Create Nebula directory
   file:
-    path: /opt/nebula/log.txt
-    state: touch
+    path: /opt/nebula
+    state: directory
     mode: 0755
 
-- name: Test lineinfile
-  lineinfile: 
-    dest: /opt/nebula/log.txt
-    line: 'hi'
+- name: Place amd64 binaries
+  copy:
+    src: files/amd64/nebula.exe
+    path: /opt/nebula/nebula.exe
+    mode: 0744
   when: arch == 'amd64'
 
+- name: Place amd64 binaries
+  copy:
+    src: files/amd64/nebula-cert.exe
+    path: /opt/nebula/nebula-cert.exe
+    mode: 0744
+  when: arch == 'amd64'
+
+- name: Place linux binaries
+  copy:
+    src: files/linux/nebula
+    dest: /opt/nebula/nebula
+    mode: 0744
+  when: arch == 'linux'
+
+- name: Place linux binaries
+  copy:
+    src: files/linux/nebula-cert
+    dest: /opt/nebula/nebula-cert
+    mode: 0744
+  when: arch == 'linux'
+
+- name: Place ca.crt
+  copy:
+    src: files/ca.crt
+    dest: /opt/nebula/ca.crt
+    mode: 0755
+
+- name: Place lighthouse config
+  copy:
+    src: files/lighthouse-config.yaml
+    dest: /opt/nebula/config.yaml
+    mode: 0744
+  when: lighthouse == 'true'
+
+- name: Place minion config
+  template:
+    src: templates/config.yaml.j2
+    dest: /opt/nebula/config.yaml
+    mode: 0744
+  when: lighthouse == 'false'
+
+- name: Place key file
+  copy:
+    src: files/ca.key
+    dest: /opt/nebula/ca.key
+    mode: 0744
+
+- name: Check for existing certs
+  stat:
+    path: /opt/nebula/{{name}}.crt
+  register: stat_result
+
+- name: Create cert files on linux
+  shell: ./nebula-cert sign -name "{{name}}" -ip "{{nebula_ip}}/24"
+  args:
+    chdir: /opt/nebula/
+  when: not stat_result.stat.exists
+
+- name: Remove key file
+  file:
+    path: /opt/nebula/ca.key
+    state: absent
+
+- name: Create systemd file
+  template:
+    src: templates/nebula.service.j2
+    dest: /etc/systemd/system/nebula.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Join mesh on linux
+  systemd:
+    name: nebula
+    state: restarted
