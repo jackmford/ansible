@@ -1,0 +1,70 @@
+- name: create prometheus group
+  group:
+    name: prometheus
+    system: true
+    state: present
+  become: true
+  become_user: root
+
+- name: create prometheus user
+  user:
+    name: prometheus
+    group: prometheus
+    system: true
+    shell: "/usr/bin/nologin"
+    state: present
+  become: true
+  become_user: root
+
+- name: create prometheus data directory
+  file:
+    path: "{{ prometheus_data_dir }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  become: true
+  become_user: root
+
+- name: create prometheus conf/alert dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: prometheus
+    mode: 0770
+  with_items:
+    - "{{ prometheus_config_dir }}"
+    - "{{ prometheus_config_dir }}/rules"
+
+- name: download prometheus tar
+  get_url:
+    url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version}}/prometheus-{{ prometheus_version }}.{{ prometheus_arch }}.tar.gz"
+    dest: "/tmp/prometheus_{{ prometheus_version }}.{{ prometheus_arch }}.tar.gz"
+  become: true
+  become_user: root
+
+- name: unzip prometheus tar
+  unarchive:
+    src: "/tmp/prometheus_tmp.tar.gz"
+    dest: "/tmp"
+    creates: "/tmp/promtheus_{{ prometheus_version }}.{{ prometheus_arch }}/prometheus"
+    remote_src: true
+  become: true
+  become_user: root
+
+- name: copy temporary binary files
+  copy:
+    src: "tmp/prometheus_{{ prometheus_version }}.{{ prometheus_arch }}/{{ item }}"
+    dest: "{{ prometheus_install_dir }}/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: true
+  with_items:
+    - prometheus
+    - promtool
+  become: true
+  become_user: root
+  notify:
+    - restart prometheus
