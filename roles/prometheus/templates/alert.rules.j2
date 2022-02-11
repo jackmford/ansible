@@ -1,0 +1,13 @@
+{{ ansible_managed | comment }}
+
+groups:
+- name: alerting rules
+  rules:
+  - alert: InstanceDown 
+    expr: "up == 0"
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: "{% raw %}Server is down!{% endraw %}"
+      description: "{% raw %}Could not reach instance for 5 min on instance {{ $labels.instance }}.{% endraw %}"
