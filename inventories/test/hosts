@@ -1,2 +1,5 @@
 [nebula]
 157.245.123.247 arch=amd64
+
+[prometheus]
+67.205.155.29
