@@ -1,0 +1,100 @@
+---
+
+- name: create alertmanager group
+  group:
+    name: alertmanager
+    system: true 
+    state: present
+  become_user: root
+  become: true
+
+- name: create alertmanager user
+  user:
+    name: alertmanager
+    group: alertmanager
+    shell: "/usr/sbin/nologin"
+    system: true
+    createhome: false
+    state: present
+  become_user: root
+  become: true
+
+- name: create alertmanager configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: alertmanager 
+    group: alertmanager
+    mode: 0755
+  with_items:
+    - "{{ alertmanager_config_dir }}"
+    - "{{ alertmanager_db_dir }}"
+  become_user: root
+  become: true
+
+- name: install alertmanager package
+  get_url:
+    url: "{{ alertmanager_download_url }}/v{{ alertmanager_version }}/alertmanager-{{ alertmanager_version }}.{{ alertmanager_arch }}.tar.gz"
+    dest: "/tmp/alertmanager-{{ alertmanager_version }}.{{ alertmanager_arch }}.tar.gz"
+  retries: 5
+  delay: 2
+  become_user: root
+  become: true
+
+- name: unarchive alertmanager package
+  unarchive:
+    src: "/tmp/alertmanager-{{ alertmanager_version }}.{{ alertmanager_arch }}.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+    creates: "tmp/alertmanager-{{ alertmanager_version }}.{{ alertmanager_arch }}/alertmanager"
+  become_user: root
+  become: true
+
+- name: copy alertmanager and amtool binaries
+  copy:
+    src: "/tmp/alertmanager-{{ alertmanager_version }}.{{ alertmanager_arch }}/{{ item }}"
+    dest: "{{ alertmanager_install_dir }}/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: yes
+  with_items:
+    - alertmanager
+    - amtool
+  become_user: root
+  become: true
+  notify:
+    - restart alertmanager
+
+- name: copy alertmanager.yml config file
+  template:
+    src: alertmanager.yml.j2
+    dest: "{{ alertmanager_config_dir }}/alertmanager.yml"
+    owner: root 
+    group: alertmanager
+    mode: 0640
+  become_user: root
+  become: true
+  notify:
+    - restart alertmanager
+
+- name: create alertmanager systemd service unit
+  template:
+    src: alertmanager.service.j2
+    dest: /etc/systemd/system/alertmanager.service
+    owner: root
+    group: root 
+    mode: 0644
+  become_user: root
+  become: true
+  notify:
+    - restart alertmanager
+
+- name: ensure alertmanager service is started and enabled
+  systemd:
+    daemon_reload: true
+    name: alertmanager
+    state: started
+    enabled: true
+  become_user: root
+  become: true

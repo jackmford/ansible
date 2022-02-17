@@ -18,7 +18,7 @@
 
 - name: create prometheus data directory
   file:
-    path: "{{ prometheus_data_dir }}"
+    path: "{{ prometheus_db_dir }}"
     state: directory
     owner: prometheus
     group: prometheus
@@ -46,8 +46,8 @@
 
 - name: unzip prometheus tar
   unarchive:
-    src: "/tmp/prometheus_tmp.tar.gz"
-    dest: "/tmp"
+    src: "/tmp/prometheus_{{ prometheus_version}}.{{ prometheus_arch}}.tar.gz"
+    dest: /tmp
     creates: "/tmp/promtheus_{{ prometheus_version }}.{{ prometheus_arch }}/prometheus"
     remote_src: true
   become: true
@@ -55,7 +55,7 @@
 
 - name: copy temporary binary files
   copy:
-    src: "tmp/prometheus_{{ prometheus_version }}.{{ prometheus_arch }}/{{ item }}"
+    src: "/tmp/prometheus-{{ prometheus_version }}.{{ prometheus_arch }}/{{ item }}"
     dest: "{{ prometheus_install_dir }}/{{ item }}"
     mode: 0755
     owner: root
