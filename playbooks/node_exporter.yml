@@ -1,0 +1,6 @@
+---
+
+- name: install node_exporter
+  hosts: personal_website
+  roles:
+    - node_exporter
