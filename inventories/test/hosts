@@ -3,3 +3,6 @@
 
 [prometheus]
 137.184.140.107
+
+[alertmanager]
+137.184.140.107
