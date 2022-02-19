@@ -11,10 +11,18 @@ alerting:
       - localhost:9093
 
 scrape_configs:
-  - job_name: 'node'
+  - job_name: 'personal website node'
     scrape_interval: 5s
     static_configs:
       - targets: ['67.205.155.29:1994']
+        labels:
+          service: 'personal-website'
+          severity: 'email'
+
+  - job_name: 'personal website app'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['https://jackmitchellfordyce.com/health']
         labels:
           service: 'personal-website'
           severity: 'email'
