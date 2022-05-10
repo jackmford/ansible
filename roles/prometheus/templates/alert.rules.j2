@@ -12,10 +12,10 @@ groups:
       summary: "{% raw %}Server is down!{% endraw %}"
       description: "{% raw %}Could not reach instance for 5 min on instance {{ $labels.instance }}.{% endraw %}"
   - alert: Personal Website Health Check Failed
-    expr: probe_http_status_code{job="personal website app"} == 200
+    expr: probe_http_status_code{job="personal website app"} == bool(200)
     for: 5m
     labels:
       severity: email
     annotations:
-      summary: "{% raw %}Personal Website /health route not responding.{% endraw %}
-      description: "{% raw %}Personal Website /health route not responding for 5 minutes.{% endraw %}
+      summary: "{% raw %}Personal Website /health route not responding.{% endraw %}"
+      description: "{% raw %}Personal Website /health route not responding for 5 minutes.{% endraw %}"
