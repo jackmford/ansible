@@ -1,0 +1,24 @@
+---
+- name: Install git
+  yum:
+    name: git
+    state: present
+  async: 600
+  become: true
+  become_user: root
+
+- name: Configure git settings
+  git_config:
+    scope: global
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - name: user.name
+      value: "{{ git_username }}"
+    - name: user.email
+      value: "{{ git_email }}"
+    - name: user.password
+      value: "{{ git_password }}"
+  become: true
+  become_user: "{{ git_user }}"
+
