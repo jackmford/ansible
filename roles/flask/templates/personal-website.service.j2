@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve personal-website
+After=network.target
+
+[Service]
+User={{ flask_app_user }}
+Group=www-data
+WorkingDirectory={{ flask_app_dir }}
+Environment="PATH={{ flask_app_dir }}/venv/bin"
+ExecStart={{ flask_app_dir }}/venv/bin/uwsgi --ini website.ini
+
+[Install]
+WantedBy=mult-user.target

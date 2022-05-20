@@ -1,0 +1,16 @@
+[Unit]
+Description=uWSGI instance serving cleanphotos
+After=network.target
+
+[Service]
+User={{ flask_app_user }}
+Group=www-data
+WorkingDirectory={{ flask_app_dir }}
+Environment="PATH={{ flask_app_dir }}/venv/bin"
+Environment="AWS_KEY={{ aws_key }}"
+Environment="AWS_SECRET={{ aws_secret }}"
+Environment="BUCKET_NAME={{ aws_bucket_name }}"
+ExecStart={{flask_app_dir}}/venv/bin/uwsgi --ini cleanphotos.ini
+
+[Install]
+WantedBy=multi-user.target
