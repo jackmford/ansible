@@ -1,0 +1,56 @@
+- name: Setup git
+  include_role:
+    name: git
+  vars:
+    git_user: "{{ flask_app_user }}"
+
+- name: Create app user
+  user:
+    name: "{{ flask_app_user }}"
+  become: true
+  become_user: root
+
+- name: Create app directory
+  file:
+    state: directory
+    path: "{{ flask_app_dir }}"
+    owner: "{{ flask_app_user }}"
+    group: "{{ flask_app_user }}"
+    mode: "0755"
+  become: true
+  become_user: root
+
+- name: Pull application source
+  git:
+    repo: "{{ flask_app_repo }}"
+    dest: "{{ flask_app_dir }}"
+    force: true
+    version: "{{ flask_app_branch_name }}"
+  notify: restart flask
+  become true
+  become_user: "{{ flask_app_user }}"
+
+- name: Create venv
+  command: "python3 -m venv {{ flask_app_dir }}/venv"
+  args:
+    creates: "{{ flask_app_dir }}/venv"
+  notify: restart flask
+  become: true
+  become_user: "{{ flask_app_user }}"
+
+- name: Install dependencies
+  pip:
+    requirements: "{{ flask_app_dir }}/requirements.txt"
+    virtualenv: "{{ flask_app_dir }}/venv"
+  notify: restart flask
+  become: true
+  become_user: "{{ flask_app_user }}"
+
+- name: Enable and start systemd
+  systemd:
+    name: "{{ flask_app_service_name }}"
+    state: started
+    enabled: true
+    daemon_reload: true
+  become: true
+  become_user: root
