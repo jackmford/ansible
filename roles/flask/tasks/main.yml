@@ -46,6 +46,14 @@
   become: true
   become_user: "{{ flask_app_user }}"
 
+- name: Copy flask systemd file
+  template:
+    src: {{ flask_app_service_name }}.service.j2
+    dest: /etc/systemd/system/{{ flask_app_service_name }}.service
+  notify: restart flask
+  become: true
+  become_user: root
+
 - name: Enable and start systemd
   systemd:
     name: "{{ flask_app_service_name }}"

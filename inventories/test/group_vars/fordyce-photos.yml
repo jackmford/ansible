@@ -16,3 +16,9 @@ aws_secret: !vault |
   6130323030396634623664386561343732303738363835343832
 
 aws_bucket_name: mypicturesjackmf
+
+flask_app_user: flask
+flask_app_dir: /home/flask/cleanphotos
+flask_app_branch_name: master
+flask_app_repo: https://github.com/jackmford/fordycephotos.git
+flask_app_service_name: cleanphotos
