@@ -21,4 +21,4 @@
     - name: user.password
       value: "{{ git_password }}"
   become: true
-  become_user: "{{ flask_app_user }}"
+  become_user: "{{ flask_app_local_user }}"

@@ -1,14 +1,14 @@
-- name: Setup git
-  include_role:
-    name: git
-  vars:
-    flask_app_user: "{{ flask_app_user }}"
-
 - name: Create app user
   user:
     name: "{{ flask_app_user }}"
   become: true
   become_user: root
+
+- name: Setup git
+  include_role:
+    name: git
+  vars:
+    flask_app_local_user: "{{ flask_app_user }}"
 
 - name: Create app directory
   file:
