@@ -1,11 +1,12 @@
 ---
-- name: Install git
-  yum:
-    name: git
-    state: present
-  async: 600
-  become: true
-  become_user: root
+#- name: Install git
+#  yum:
+#    name: git
+#    state: present
+#    use_backend: yum
+#  async: 600
+#  become: true
+#  become_user: root
 
 - name: Configure git settings
   git_config:
@@ -20,5 +21,4 @@
     - name: user.password
       value: "{{ git_password }}"
   become: true
-  become_user: "{{ git_user }}"
-
+  become_user: "{{ flask_app_user }}"

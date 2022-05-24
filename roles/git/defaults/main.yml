@@ -1,4 +1,5 @@
 ---
+git_username: jackmford
 git_email: jackmitchellfordyce@gmail.com
 git_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256

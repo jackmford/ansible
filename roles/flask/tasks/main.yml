@@ -2,7 +2,7 @@
   include_role:
     name: git
   vars:
-    git_user: "{{ flask_app_user }}"
+    flask_app_user: "{{ flask_app_user }}"
 
 - name: Create app user
   user:
@@ -48,7 +48,7 @@
 
 - name: Copy flask systemd file
   template:
-    src: {{ flask_app_service_name }}.service.j2
+    src: "{{ flask_app_service_name }}.service.j2"
     dest: /etc/systemd/system/{{ flask_app_service_name }}.service
   notify: restart flask
   become: true
