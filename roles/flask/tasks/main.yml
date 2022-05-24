@@ -27,7 +27,7 @@
     force: true
     version: "{{ flask_app_branch_name }}"
   notify: restart flask
-  become true
+  become: true
   become_user: "{{ flask_app_user }}"
 
 - name: Create venv
