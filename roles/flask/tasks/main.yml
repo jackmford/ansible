@@ -38,6 +38,10 @@
   apt:
     name: python-dev
 
+- name: Install python dev
+  apt:
+    name: build-essential python
+
 - name: Install C compiler for uWSGI
   apt:
     name: gcc
