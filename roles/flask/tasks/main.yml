@@ -1,3 +1,7 @@
+- name: Setup caddy
+  include_role:
+    name: caddy
+
 - name: Create app user
   user:
     name: "{{ flask_app_user }}"
