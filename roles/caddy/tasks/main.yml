@@ -15,3 +15,11 @@
   apt:
     name: caddy
     update_cache: yes
+
+- name: Copy caddy file
+  template:
+    src: "Caddyfile.j2"
+    dest: /etc/caddy/Caddyfile
+  notify: restart caddy
+  become: true
+  become_user: root

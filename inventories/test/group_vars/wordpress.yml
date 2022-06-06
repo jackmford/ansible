@@ -22,3 +22,6 @@ flask_app_dir: /home/flask/cleanphotos
 flask_app_branch_name: master
 flask_app_repo: https://github.com/jackmford/fordycephotos.git
 flask_app_service_name: cleanphotos
+
+site_url: wordpress-test.com
+site_port: 3000
