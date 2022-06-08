@@ -1,0 +1,6 @@
+- name: restart flask
+  systemd:
+    name: "{{ flask_app_service_name }}"
+    state: restarted
+  become: true
+  become_user: root
