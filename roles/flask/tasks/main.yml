@@ -1,6 +1,6 @@
-- name: Setup caddy
-  include_role:
-    name: caddy
+#- name: Setup caddy
+#  include_role:
+#    name: caddy
 
 - name: Create app user
   user:
@@ -45,6 +45,7 @@
 - name: Install python dev
   apt:
     name: build-essential python
+    update_cache: yes
 
 - name: Install C compiler for uWSGI
   apt:
