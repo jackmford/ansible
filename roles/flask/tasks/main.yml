@@ -46,9 +46,13 @@
   apt:
     name: python-dev
 
-- name: Install python dev
+- name: Install libpython3
   apt:
-    name: build-essential python
+    name: libpython3-all-dev
+
+- name: Install python build-essential
+  apt:
+    name: build-essential
 
 - name: Install C compiler for uWSGI
   apt:
