@@ -34,6 +34,10 @@
   become: true
   become_user: "{{ flask_app_user }}"
 
+#- name: Run apt-get update
+#  apt:
+#    update_cache: yes
+
 - name: Install python venv
   apt:
     name: python3.8-venv
@@ -45,7 +49,6 @@
 - name: Install python dev
   apt:
     name: build-essential python
-    update_cache: yes
 
 - name: Install C compiler for uWSGI
   apt:
