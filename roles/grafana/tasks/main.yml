@@ -1,6 +1,7 @@
+
 - name: Install apt-transport-https
   apt:
-    name: apt-trasnport-https
+    name: apt-transport-https
 
 - name: Install wget
   apt:
