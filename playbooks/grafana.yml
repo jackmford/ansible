@@ -1,0 +1,6 @@
+---
+
+- name: install grafana
+  hosts: wordpress
+  roles:
+    - grafana
