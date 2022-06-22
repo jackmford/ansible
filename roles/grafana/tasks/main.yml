@@ -3,12 +3,16 @@
   apt:
     name: apt-transport-https
 
+- name: Install software properties common
+  apt:
+    name: software-properties-common
+
 - name: Install wget
   apt:
-    name: software-properties-common wget
+    name: wget
 
 - name: Get package for Grafana
-  shell: wget -q -O - https://packages.grafana.gpg.key | sudo apt-key add -
+  shell: wget -q -vO - https://packages.grafana.gpg.key | sudo apt-key add -
 
 - name: Add stable release repository
   shell: echo "deb https://packages.grafana.com/enterprise/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
