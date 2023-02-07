@@ -1,0 +1,6 @@
+---
+
+server_admin_users:
+  - name: dyce
+    public_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC2kz72+AXbPSnc9s2RzrmYMfsWgS44Qsc8QPiWNPZ0Z+X55Gv9ENgjVkAHTQU+PqC/cYk0AoPG2/KHVkerEXx0OtSegfsnmZ/F0P+qOwsXnOHx3SEZErfXd0pHyjMoyodO6NKSj+E9KF0zmOiLwMP4tY6j2vW4wuswJ+MMBLi9tdhRfqg5mavDNGTDy8sT7sklTQ8e3wFc7lf2R5kimDckcEpu7WN63G6C/TdZsS6p4zd+/342P0df2Dr7NUxvIL2fqFxKQz5Cc4o5xCTgTUKIOyiAvhIX1LsjuRDxoNefVu4Hs98d+v6jn5X27n6KhEE5a2hHtLG09sbDQQUleKJkYD7MG/FHWEVSkeQ1y2Tvj28PTTSXuWU/+Zx11P0QPHSVk1RmM2Tsxb/8S1JcRqzIlVyPUXGABbxcx62b6IgCAwo2jMm1YoPCMf8E4iWraev03QcYCPxYplOnOW4AtYUP23x+4OrApkcU11b4FT3uy6VbgYwjW4Kq1Lt30BlqgM= jackfordyce@Jacks-MacBook-Air.local 
