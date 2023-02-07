@@ -1,0 +1,6 @@
+---
+
+- name: set up server
+  hosts: personal_website
+  roles:
+    - server
