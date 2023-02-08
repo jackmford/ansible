@@ -52,7 +52,7 @@
     dest: /home/{{ item.name }}/.ssh/authorized_keys
     mode: "0600"
   with_items: "{{ server_admin_users }}"
-  #no_log: yes
+  no_log: yes
   become: yes
   become_user: "{{ item.name }}"
 
