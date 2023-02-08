@@ -3,4 +3,5 @@
 - name: set up server
   hosts: personal_website
   roles:
-    - server
+    #- server
+    - personal-website
