@@ -2,13 +2,14 @@
   apt:
     deb: https://github.com/jackmford/personal-website-MK3/releases/download/{{ version }}/personal-website-MK3_linux_amd64.deb
     update_cache: yes
+  notify: restart website
   become: yes
   become_user: root
 
 - name: Start and enable website
   systemd:
     name: personal-website
-    state: started
+    state: restarted
     enabled: yes
     daemon_reload: yes
   become: yes
