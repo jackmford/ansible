@@ -11,6 +11,7 @@ Group=alertmanager
 ExecReload=/bin/kill -HUP $MAINPID
 ExecStart={{ alertmanager_install_dir }}/alertmanager \
   --config.file={{ alertmanager_config_dir }}/alertmanager.yml \
+  --web.config.file={{ alertmanager_config_dir}}/web.yml \
   --storage.path={{ alertmanager_db_dir }} \
   --web.listen-address={{ alertmanager_web_listen_address }}
 

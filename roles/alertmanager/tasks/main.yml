@@ -78,6 +78,18 @@
   notify:
     - restart alertmanager
 
+- name: configure alertmanager web 
+  template:
+    src: "web.yml.j2"
+    dest: "{{ alertmanager_config_dir }}/web.yml"
+    owner: root 
+    group: alertmanager
+    mode: 0640
+  become_user: root
+  become: true
+  notify:
+    - restart alertmanager
+
 - name: create alertmanager systemd service unit
   template:
     src: alertmanager.service.j2
