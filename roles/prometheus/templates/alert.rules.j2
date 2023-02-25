@@ -17,8 +17,8 @@ groups:
     labels:
       severity: email
     annotations:
-      summary: "{% raw %}Personal Website /health route not responding.{% endraw %}"
-      description: "{% raw %}Personal Website /health route not responding for 5 minutes.{% endraw %}"
+      summary: "{% raw %}Personal Website not responding.{% endraw %}"
+      description: "{% raw %}Personal Website not responding for 5 minutes.{% endraw %}"
   - alert: Fordyce Photos Health Check Failed
     expr: probe_http_status_code{job="fordyce photos app"} != 200
     for: 5m
