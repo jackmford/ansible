@@ -14,6 +14,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 
 ExecStart={{ prometheus_install_dir }}/prometheus \
   --config.file={{ prometheus_config_dir }}/prometheus.yml \
+  --web.config.file={{ prometheus_config_dir }}/web.yml \
   --storage.tsdb.path={{ prometheus_db_dir }} \
   --storage.tsdb.retention.time=7d \
   --storage.tsdb.retention.size=0 \
