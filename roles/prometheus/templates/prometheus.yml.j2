@@ -19,6 +19,15 @@ scrape_configs:
           service: 'personal-website'
           severity: 'email'
 
+  - job_name: 'personal website metrics'
+    metrics_path: /metrics
+    scheme: https
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['jackmitchellfordyce.com']
+        labels:
+          service: 'personal-website'
+
   - job_name: 'personal website app'
     metrics_path: /probe
     params:
