@@ -12,10 +12,14 @@
     name: wget
 
 - name: Get package for Grafana
-  shell: wget -q -vO - https://packages.grafana.gpg.key | sudo apt-key add -
+  shell: wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+  become: true
+  become_user: root
 
 - name: Add stable release repository
   shell: echo "deb https://packages.grafana.com/enterprise/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+  become: true
+  become_user: root
 
 - name: Run apt get update
   apt:

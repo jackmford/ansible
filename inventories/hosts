@@ -4,6 +4,9 @@
 [prometheus]
 137.184.140.107
 
+[grafana]
+137.184.140.107
+
 [blackbox_exporter]
 137.184.140.107
 
