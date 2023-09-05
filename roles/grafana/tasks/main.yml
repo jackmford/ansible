@@ -24,7 +24,12 @@
 - name: Run apt get update
   apt:
     update_cache: yes
+  become: true
+  become_user: root
 
 - name: Install Grafana
   apt:
     name: grafana-enterprise
+  become: true
+  become_user: root
+  notify: restart grafana
