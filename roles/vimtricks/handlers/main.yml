@@ -4,5 +4,5 @@
     name: vimtricks
     state: restarted
     daemon_reload: yes
-  become: yes
+  become: true
   become_user: root
