@@ -1,0 +1,8 @@
+# defaults/main.yml
+go_binary_path: "/home/vimtricks"
+go_binary_name: "vimtricks"
+go_service_name: "vimtricks"
+go_service_user: "root"
+go_service_group: "root"
+version: "v0.0.2"
+

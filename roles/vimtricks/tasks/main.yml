@@ -1,0 +1,16 @@
+# tasks/main.yml
+---
+- name: Install vimtricks. Version {{ version }}.
+  apt:
+    deb: https://github.com/jackmford/vimtricks/releases/download/{{ version }}/vimtricks_linux_amd64.deb
+    update_cache: yes
+  notify: restart website
+  become: true
+  become_user: root
+
+- name: Start the Go application service
+  systemd:
+    name: "vimtricks"
+    state: started
+    enabled: yes
+

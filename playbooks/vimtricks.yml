@@ -1,0 +1,6 @@
+---
+
+- name: deploy vimtricks
+  hosts: personal_website
+  roles:
+    - vimtricks
