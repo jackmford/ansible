@@ -1,7 +1,6 @@
-fordycephotos.com, www.fordycephotos.com {
-	reverse_proxy 127.0.0.1:3000
+{% for domain in domains %}
+{{ domain.url }} {
+    reverse_proxy 127.0.0.1:{{ domain.port }}
 }
+{% endfor %}
 
-{{ site_url }}, www.{{ site_url }} {
-    reverse_proxy 127.0.0.1:{{ site_port }}
-}

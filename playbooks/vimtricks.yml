@@ -3,4 +3,5 @@
 - name: deploy vimtricks
   hosts: personal_website
   roles:
+    - caddy
     - vimtricks

@@ -22,3 +22,7 @@ flask_app_dir: /home/flask/cleanphotos
 flask_app_branch_name: master
 flask_app_repo: https://github.com/jackmford/fordycephotos.git
 flask_app_service_name: cleanphotos
+
+domains:
+  - url: fordycephotos.com
+    port: 3000

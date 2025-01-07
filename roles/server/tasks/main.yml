@@ -2,10 +2,10 @@
 
 - name: Upgrade base packages
   apt:
-    upgrade: yes
-    update_cache: yes
+    upgrade: true
+    update_cache: true
   when: ansible_ssh_user == "root"
-  become: yes
+  become: true
   become_user: root
 
 - name: Create admin user
@@ -13,27 +13,27 @@
     name: "{{ item.name }}"
     groups: sudo
     shell: /bin/bash
-    create_home: yes
+    create_home: true
     password: ""
     update_password: on_create
   register: admin_users
   with_items: "{{ server_admin_users }}"
-  become: yes
+  become: true
   become_user: root
 
 - name: Expire admin user password
   command: passwd -e {{ item.name }}
   when: item.changed
   with_items: "{{ admin_users.results }}"
-  no_log: yes
-  become: yes
+  no_log: true
+  become: true
   become_user: root
 
 - name: Limit SSH login attempts
   ufw:
     rule: limit
     port: "22"
-  become: yes
+  become: true
   become_user: root
 
 - name: Create admin user .ssh directory
@@ -42,8 +42,8 @@
     state: directory
     mode: "0700"
   with_items: "{{ server_admin_users }}"
-  no_log: yes
-  become: yes
+  no_log: true
+  become: true
   become_user: "{{ item.name }}"
 
 - name: Setup admin user authorized_keys file
@@ -52,8 +52,8 @@
     dest: /home/{{ item.name }}/.ssh/authorized_keys
     mode: "0600"
   with_items: "{{ server_admin_users }}"
-  no_log: yes
-  become: yes
+  no_log: true
+  become: true
   become_user: "{{ item.name }}"
 
 - name: Limit journald log sizes
@@ -67,5 +67,5 @@
     - name: SystemMaxFileSize
       value: 10M
   notify: restart systemd-journald
-  become: yes
+  become: true
   become_user: root

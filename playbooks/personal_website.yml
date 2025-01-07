@@ -4,4 +4,5 @@
   hosts: personal_website
   roles:
     - server
+    - caddy
     - personal-website
