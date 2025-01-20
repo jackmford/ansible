@@ -5,7 +5,7 @@
     path: "/usr/local/bin/node_exporter"
   register: node_exporter_is_installed
 
-- name: if installed, register node expoprter version.
+- name: if installed, register node exporter version.
   command: "/usr/local/bin/node_exporter --version"
   changed_when: false
   register: node_exporter_version_output
