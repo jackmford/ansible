@@ -1,0 +1,15 @@
+---
+- name: Disable WiFi power management at boot
+  cron:
+    name: "Disable WiFi power saving"
+    special_time: reboot
+    job: "/sbin/iwconfig wlan0 power off"
+
+- name: Verify WiFi power management is disabled
+  shell: sudo iwconfig wlan0 | grep "Power Management"
+  register: wifi_power_status
+  changed_when: false
+
+- name: Display WiFi power status
+  debug:
+    msg: "WiFi Power Management: {{ wifi_power_status.stdout }}" 

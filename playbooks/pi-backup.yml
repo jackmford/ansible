@@ -1,0 +1,6 @@
+---
+
+- name: configure backup server
+  hosts: pi-backup
+  roles:
+    - pi-backup

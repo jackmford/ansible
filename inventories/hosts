@@ -22,3 +22,6 @@
 
 [wordpress]
 143.110.233.110
+
+[pi-backup]
+backup-pi.local
