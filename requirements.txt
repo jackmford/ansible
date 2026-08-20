@@ -1,0 +1,2 @@
+# The newest Ansible Core release that supports Ubuntu 20.04's Python 3.8.
+ansible-core==2.17.12
