@@ -1,0 +1,15 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv run --python 3.12 --with-requirements requirements.txt ansible-galaxy collection install -r requirements.yml -p collections
+      - run: for playbook in playbooks/*.yml; do uv run --python 3.12 --with-requirements requirements.txt ansible-playbook "$playbook" --syntax-check; done

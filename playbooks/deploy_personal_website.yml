@@ -1,0 +1,6 @@
+---
+
+- name: deploy personal website
+  hosts: personal_website
+  roles:
+    - personal-website
