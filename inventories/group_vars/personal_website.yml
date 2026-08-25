@@ -4,5 +4,3 @@ domains:
     port: 4000
   - url: www.jackmitchellfordyce.com
     port: 4000
-  - url: vimtricks.jackmitchellfordyce.com
-    port: 8080
