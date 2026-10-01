@@ -1,7 +1,11 @@
+- name: Update apt cache
+  command: apt-get update
+  become: true
+  become_user: root
+
 - name: Install website
   apt:
     deb: https://github.com/jackmford/personal-website-MK3/releases/download/{{ version }}/personal-website-MK3_linux_amd64.deb
-    update_cache: yes
   notify: restart website
   become: true
   become_user: root
